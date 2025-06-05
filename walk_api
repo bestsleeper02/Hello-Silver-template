@@ -1,0 +1,38 @@
+npm install -g cordova
+cordova create hello-silver com.hellosilver.app HelloSilver
+cd hello-silver
+cordova platform add android
+
+cordova plugin add cordova-plugin-health
+
+<p>오늘의 걸음 수: <span id="stepCount">0</span></p>
+
+document.addEventListener('deviceready', function () {
+  cordova.plugins.health.isAvailable(function (available) {
+    if (available) {
+      // 권한 요청
+      cordova.plugins.health.requestAuthorization(
+        [{ type: 'steps', read: true }],
+        function () {
+          // 데이터 쿼리
+          cordova.plugins.health.queryAggregated({
+            startDate: new Date(new Date().setHours(0, 0, 0, 0)),
+            endDate: new Date(),
+            dataType: 'steps',
+            bucket: 'day'
+          }, function (data) {
+            const todaySteps = data[0]?.value || 0;
+            document.getElementById('stepCount').innerText = todaySteps;
+          }, function (err) {
+            alert('걸음 수 불러오기 실패: ' + err);
+          });
+        },
+        function (err) {
+          alert('권한 요청 실패: ' + err);
+        }
+      );
+    } else {
+      alert('Health API를 사용할 수 없습니다.');
+    }
+  });
+});
