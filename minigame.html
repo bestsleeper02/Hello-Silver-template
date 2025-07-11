@@ -5,113 +5,256 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-
-        <title>Hello Silver - 효성여고 학생이 만드는 나눔</title>
-      
+        <title>Hello Silver - 미니게임</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/bootstrap-icons.css" rel="stylesheet">
         <link href="css/templatemo-kind-heart-charity.css" rel="stylesheet">
-    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            .color-btn { transition: transform 0.1s ease, box-shadow 0.1s ease; }
+            .color-btn:active { transform: scale(0.95); box-shadow: inset 0 4px 8px rgba(0,0,0,0.2); }
+            .feedback-animation { animation: fadeInOut 2s ease-in-out; }
+            @keyframes fadeInOut {
+                0%, 100% { opacity: 0; transform: scale(0.9); }
+                25%, 75% { opacity: 1; transform: scale(1); }
+            }
+        </style>
     </head>
-    <body id="section_1">
+    <body>
         <header class="site-header">
             <div class="container">
-                <div class="row">                    
+                <div class="row">
                     <div class="col-lg-8 col-12 d-flex flex-wrap">
                         <p class="d-flex me-4 mb-0">
                             <i class="bi-geo-alt me-2"></i>
                             <strong>효성여자고등학교</strong>
                         </p>
-
                         <p class="d-flex mb-0">
                             <i class="bi-envelope me-2"></i>
-                            <a href="mailto:info@company.com">
-                                team.ddasum.care@gmail.com
-                            </a>
+                            <a href="mailto:info@company.com">team.ddasum.care@gmail.com</a>
                         </p>
                     </div>
-
                     <div class="col-lg-3 col-12 ms-auto d-lg-block d-none">
                         <ul class="social-icon">
-                            <li class="social-icon-item">
-                                <a href="#" class="social-icon-link bi-twitter"></a>
-                            </li>
-                            <li class="social-icon-item">
-                                <a href="#" class="social-icon-link bi-facebook"></a>
-                            </li>
-                            
-                            <li class="social-icon-item">
-                                <a href="#" class="social-icon-link bi-instagram"></a>
-                            </li>
-                            
-                            <li class="social-icon-item">
-                                <a href="#" class="social-icon-link bi-youtube"></a>
-                            </li>
-
-                            <li class="social-icon-item">
-                                <a href="#" class="social-icon-link bi-whatsapp"></a>
-                            </li>
+                            <li class="social-icon-item"><a href="#" class="social-icon-link bi-twitter"></a></li>
+                            <li class="social-icon-item"><a href="#" class="social-icon-link bi-facebook"></a></li>
+                            <li class="social-icon-item"><a href="#" class="social-icon-link bi-instagram"></a></li>
+                            <li class="social-icon-item"><a href="#" class="social-icon-link bi-youtube"></a></li>
+                            <li class="social-icon-item"><a href="#" class="social-icon-link bi-whatsapp"></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </header>
-
         <nav class="navbar navbar-expand-lg bg-light shadow-lg">
             <div class="container">
                 <a class="navbar-brand" href="index.html">
-                    <img src="images/logo.png" class="logo img-fluid" alt="Hello Silver">
+                    <img src="images/logo.png" class="logo img-fluid" alt="">
                     <span>
                         Hello Silver
                         <small>효성여고 학생이 만드는 나눔</small>
                     </span>
                 </a>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#top">Home</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_2">About</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_3">Causes</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_4">Volunteer</a>
-                        </li>
-
+                        <li class="nav-item"><a class="nav-link smoothscroll" href="index.html#section_1">Home</a></li>
+                        <li class="nav-item"><a class="nav-link smoothscroll" href="index.html#section_2">About</a></li>
+                        <li class="nav-item"><a class="nav-link smoothscroll" href="index.html#section_3">Causes</a></li>
+                        <li class="nav-item"><a class="nav-link smoothscroll" href="index.html#section_4">Volunteer</a></li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link click-scroll dropdown-toggle" href="#section_5" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
-
+                            <a class="nav-link click-scroll dropdown-toggle" href="index.html#section_5" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">News</a>
                             <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                                 <li><a class="dropdown-item" href="news.html">건강 정보</a></li>
-
-                                <li><a class="dropdown-item" href="news-detail.html">지역별 서비스 안내</a></li>
+                                <li><a class="dropdown-item" href="programs.html">달서구 노인 종합 복지관</a></li>
                             </ul>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_6">연락망</a>
-                        </li>
-                        
-                         <li class="nav-item">
-    						 <a class="nav-link" href="minigame.html">미니게임</a>
-				 		 </li>
-
-                        <li class="nav-item ms-3">
-                            <a class="nav-link custom-btn custom-border-btn btn" href="donate.html">기부</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link smoothscroll" href="index.html#section_6">Contact</a></li>
+                        <li class="nav-item ms-3"><a class="nav-link custom-btn custom-border-btn btn" href="donate.html">Donate</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-<main> </main>
+        <main>
+            <section class="section-padding">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 text-center">
+                            <h2 class="mb-4">미니게임</h2>
+                            <div class="mb-4">
+                                <button class="btn btn-primary me-2" onclick="showGame('number-game')">숫자 기억 게임</button>
+                                <button class="btn btn-secondary" onclick="showGame('color-game')">색깔 순서 기억 게임</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div id="number-game" class="mb-5">
+                                <h3 id="number" class="mb-3" style="font-size:30px;"></h3>
+                                <div class="mb-2"><input id="answer" class="form-control" placeholder="숫자 3개를 ,로 입력"></div>
+                                <button class="btn btn-success mb-2" onclick="checkNumberAnswer()">제출</button>
+                                <p id="result" class="mb-2"></p>
+                                <button class="btn btn-outline-primary" onclick="startNumberGame()">게임 시작</button>
+                            </div>
+                            <div id="color-game" style="display:none;" class="mb-5">
+                                <div class="w-full max-w-sm mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 text-center">
+                                    <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">색깔 순서 기억 게임</h3>
+                                    <p class="text-gray-500 mb-6">집중력과 기억력을 훈련해요!</p>
+                                    <div id="display" class="w-full h-40 md:h-48 bg-gray-200 rounded-xl mb-6 flex items-center justify-center border-4 border-gray-300">
+                                        <div id="feedback" class="text-3xl font-bold"></div>
+                                    </div>
+                                    <div id="message" class="h-12 text-lg md:text-xl font-semibold text-blue-600 flex items-center justify-center mb-6">시작 버튼을 눌러주세요.</div>
+                                    <div id="input-area" class="grid grid-cols-2 gap-4 mb-6">
+                                        <button data-color="red" class="color-btn h-24 md:h-28 rounded-xl bg-red-500 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"></button>
+                                        <button data-color="blue" class="color-btn h-24 md:h-28 rounded-xl bg-blue-500 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"></button>
+                                        <button data-color="green" class="color-btn h-24 md:h-28 rounded-xl bg-green-500 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"></button>
+                                        <button data-color="yellow" class="color-btn h-24 md:h-28 rounded-xl bg-yellow-400 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"></button>
+                                    </div>
+                                    <button id="startBtn" class="w-full bg-indigo-600 text-white font-bold py-3 md:py-4 px-4 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">게임 시작</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-12 mb-4"><img src="images/logo.png" class="logo img-fluid" alt=""></div>
+                    <div class="col-lg-4 col-md-6 col-12 mb-4">
+                        <h5 class="site-footer-title mb-3">Quick Links</h5>
+                        <ul class="footer-menu">
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Our Story</a></li>
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Newsroom</a></li>
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Causes</a></li>
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Become a volunteer</a></li>
+                            <li class="footer-menu-item"><a href="#" class="footer-menu-link">Partner with us</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 mx-auto">
+                        <h5 class="site-footer-title mb-3">Contact Infomation</h5>
+                        <p class="text-white d-flex mb-2"><i class="bi-telephone me-2"></i><a href="tel: 120-240-9600" class="site-footer-link">120-240-9600</a></p>
+                        <p class="text-white d-flex"><i class="bi-envelope me-2"></i><a href="mailto:info@yourgmail.com" class="site-footer-link">donate@charity.org</a></p>
+                        <p class="text-white d-flex mt-3"><i class="bi-geo-alt me-2"></i>Akershusstranda 20, 0150 Oslo, Norway</p>
+                        <a href="#" class="custom-btn btn mt-3">Get Direction</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/counter.js"></script>
+        <script src="js/custom.js"></script>
+        <script>
+            function showGame(id) {
+                document.getElementById('number-game').style.display = id === 'number-game' ? 'block' : 'none';
+                document.getElementById('color-game').style.display = id === 'color-game' ? 'block' : 'none';
+            }
+            let generatedNumbers = [];
+            function startNumberGame() {
+                generatedNumbers = [];
+                while (generatedNumbers.length < 3) {
+                    let n = Math.floor(Math.random() * 9) + 1;
+                    if (!generatedNumbers.includes(n)) generatedNumbers.push(n);
+                }
+                document.getElementById('number').innerText = generatedNumbers.join(', ');
+                setTimeout(() => { document.getElementById('number').innerText = ''; }, 3000);
+            }
+            function checkNumberAnswer() {
+                const userAnswer = document.getElementById('answer').value.replace(/\s+/g, '');
+                const correctAnswer = generatedNumbers.join(',');
+                document.getElementById('result').innerText = (userAnswer === correctAnswer) ? '정답입니다!' : '틀렸습니다. 정답은 ' + correctAnswer;
+            }
+            const display = document.getElementById('display');
+            const message = document.getElementById('message');
+            const startBtn = document.getElementById('startBtn');
+            const inputArea = document.getElementById('input-area');
+            const colorButtons = document.querySelectorAll('.color-btn');
+            const feedback = document.getElementById('feedback');
+            const COLORS = ['red','blue','green','yellow'];
+            const COLOR_MAP = { red: 'bg-red-500', blue: 'bg-blue-500', green: 'bg-green-500', yellow: 'bg-yellow-400', default: 'bg-gray-200' };
+            let sequence = [];
+            let userSequence = [];
+            let level = 2;
+            let isShowingSequence = false;
+            function startColorGame() {
+                startBtn.textContent = '다음 단계';
+                startBtn.disabled = true;
+                level = 2;
+                nextColorLevel();
+            }
+            function nextColorLevel() {
+                level++;
+                userSequence = [];
+                message.textContent = '순서를 기억하세요!';
+                disableColorInput();
+                sequence = [];
+                for (let i = 0; i < level; i++) {
+                    const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+                    sequence.push(randomColor);
+                }
+                showColorSequence();
+            }
+            async function showColorSequence() {
+                isShowingSequence = true;
+                await colorSleep(500);
+                for (const color of sequence) {
+                    display.classList.remove(COLOR_MAP.default);
+                    display.classList.add(COLOR_MAP[color]);
+                    await colorSleep(1000);
+                    display.classList.remove(COLOR_MAP[color]);
+                    display.classList.add(COLOR_MAP.default);
+                    await colorSleep(300);
+                }
+                message.textContent = '순서대로 눌러보세요!';
+                enableColorInput();
+                isShowingSequence = false;
+            }
+            function handleColorInput(e) {
+                if (isShowingSequence) return;
+                const clickedColor = e.target.dataset.color;
+                if (!clickedColor) return;
+                userSequence.push(clickedColor);
+                flashColor(clickedColor, 200);
+                checkColorSequence();
+            }
+            function checkColorSequence() {
+                const currentInputIndex = userSequence.length - 1;
+                if (userSequence[currentInputIndex] !== sequence[currentInputIndex]) {
+                    showColorFeedback('❌', '다시 시도해보세요!', 'text-red-500');
+                    disableColorInput();
+                    setTimeout(() => { userSequence = []; message.textContent = '순서를 다시 기억하세요!'; showColorSequence(); }, 2000);
+                    return;
+                }
+                if (userSequence.length === sequence.length) {
+                    showColorFeedback('🎉', '정답입니다!', 'text-green-500');
+                    disableColorInput();
+                    setTimeout(() => { nextColorLevel(); }, 2000);
+                }
+            }
+            function showColorFeedback(emoji, text, cls) {
+                feedback.textContent = emoji;
+                feedback.className = `text-5xl md:text-6xl font-bold feedback-animation ${cls}`;
+                message.textContent = text;
+                feedback.addEventListener('animationend', () => { feedback.textContent = ''; feedback.className = ''; }, { once: true });
+            }
+            async function flashColor(color, duration) {
+                display.classList.remove(COLOR_MAP.default);
+                display.classList.add(COLOR_MAP[color]);
+                await colorSleep(duration);
+                display.classList.remove(COLOR_MAP[color]);
+                display.classList.add(COLOR_MAP.default);
+            }
+            function colorSleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+            function enableColorInput() { colorButtons.forEach(btn => btn.disabled = false); }
+            function disableColorInput() { colorButtons.forEach(btn => btn.disabled = true); }
+            startBtn.addEventListener('click', startColorGame);
+            inputArea.addEventListener('click', handleColorInput);
+            disableColorInput();
+        </script>
+    </body>
+</html>
