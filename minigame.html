@@ -148,8 +148,8 @@
                                         <button class="choice-button" onclick="selectWord('노란색')">노란색</button>
                                     </div>
                                     <div>
-                                        <button class="control-button" onclick="startWordGame()">시작</button>
-                                        <button class="control-button" onclick="resetWordGame()">리셋</button>
+                                        <button class="control-button" onclick="startWordGame()">시작하기</button>
+                                        <button class="control-button" onclick="resetWordGame()">다시하기</button>
                                     </div>
                                     <div id="word-message" class="message" style="display: none;"></div>
                                 </div>
@@ -169,7 +169,7 @@
                                     </div>
                                     <div class="number-display" id="number-display">시작하세요!</div>
                                     <div>
-                                        <button class="control-button" onclick="startNumberGame()">시작</button>
+                                        <button class="control-button" onclick="startNumberGame()">시작하기</button>
                                         <button class="control-button" onclick="submitNumber()" id="submit-number" disabled>제출</button>
                                     </div>
                                     <div>
@@ -200,8 +200,8 @@
                                         <button class="color-button orange" onclick="colorClick('orange')" data-number=""></button>
                                     </div>
                                     <div>
-                                        <button class="control-button" onclick="startColorGame()">시작</button>
-                                        <button class="control-button" onclick="resetColorGame()">리셋</button>
+                                        <button class="control-button" onclick="startColorGame()">시작하기</button>
+                                        <button class="control-button" onclick="resetColorGame()">리셋하기</button>
                                     </div>
                                     <div id="color-message" class="message" style="display: none;"></div>
                                 </div>
@@ -582,18 +582,17 @@
                 
                 if (userInput === correctNumber) {
                     numberScore += currentLevel * 10;
-                    currentLevel++;
-                    messageEl.textContent = '정답! 다음 단계로 진행합니다.';
+                    messageEl.innerHTML = `
+                        <div style="margin-bottom: 15px;">훌륭하세요! 정답입니다! 🎉</div>
+                        <button class="control-button" onclick="nextNumberLevel()" style="background: #28a745; margin-right: 10px;">다음 단계</button>
+                        <button class="control-button" onclick="stayNumberLevel()">그만하기</button>
+                    `;
                     messageEl.className = 'message success';
                     
-                    document.getElementById('number-level').textContent = currentLevel;
+                    document.getElementById('number-level').textContent = currentLevel + 1;
                     document.getElementById('number-score').textContent = numberScore;
-                    
-                    setTimeout(() => {
-                        startNumberGame();
-                    }, 2000);
                 } else {
-                    messageEl.textContent = `틀렸습니다! 정답은 ${correctNumber}이었습니다.`;
+                    messageEl.textContent = `아쉽네요! 정답은 ${correctNumber}이었어요. 다시 한번 도전해보세요! 😊`;
                     messageEl.className = 'message error';
                     
                     // 게임 리셋
@@ -608,6 +607,19 @@
                 
                 messageEl.style.display = 'block';
                 document.getElementById('number-input').value = '';
+            }
+            
+            function nextNumberLevel() {
+                currentLevel++;
+                document.getElementById('number-level').textContent = currentLevel;
+                document.getElementById('number-message').style.display = 'none';
+                setTimeout(() => {
+                    startNumberGame();
+                }, 500);
+            }
+            
+            function stayNumberLevel() {
+                document.getElementById('number-message').style.display = 'none';
             }
             
             // 색깔 게임 변수
@@ -701,25 +713,23 @@
                         // 레벨 완료
                         canClick = false;
                         colorScore += colorLevel * 15;
-                        colorLevel++;
                         
-                        document.getElementById('color-level').textContent = colorLevel;
                         document.getElementById('color-score').textContent = colorScore;
                         
-                        showMessage('정답! 다음 단계로 진행합니다.', 'success');
-                        
-                        setTimeout(() => {
-                            startColorGame();
-                        }, 2000);
+                        showMessage(`
+                            <div style="margin-bottom: 15px;">멋져요! 모든 순서를 맞히셨네요! 🎉</div>
+                            <button class="control-button" onclick="nextColorLevel()" style="background: #28a745; margin-right: 10px;">다음 단계</button>
+                            <button class="control-button" onclick="stayColorLevel()">그만하기</button>
+                        `, 'success');
                     }
                 } else {
                     // 틀렸을 때
                     canClick = false;
-                    showMessage('틀렸습니다! 게임이 리셋됩니다.', 'error');
+                    showMessage('아쉽네요! 순서가 다르네요. 천천히 다시 도전해보세요! 😊', 'error');
                     
                     setTimeout(() => {
                         resetColorGame();
-                    }, 2000);
+                    }, 3000);
                 }
             }
             
@@ -745,9 +755,26 @@
             
             function showMessage(text, type) {
                 const messageEl = document.getElementById('color-message');
-                messageEl.textContent = text;
+                if (typeof text === 'string') {
+                    messageEl.textContent = text;
+                } else {
+                    messageEl.innerHTML = text;
+                }
                 messageEl.className = `message ${type}`;
                 messageEl.style.display = 'block';
+            }
+            
+            function nextColorLevel() {
+                colorLevel++;
+                document.getElementById('color-level').textContent = colorLevel;
+                document.getElementById('color-message').style.display = 'none';
+                setTimeout(() => {
+                    startColorGame();
+                }, 500);
+            }
+            
+            function stayColorLevel() {
+                document.getElementById('color-message').style.display = 'none';
             }
             
             // 글자 맞추기 게임 변수
@@ -835,26 +862,24 @@
                 if (selectedColor === currentWordColor) {
                     // 정답
                     wordScore += wordLevel * 20;
-                    wordLevel++;
-                    messageEl.textContent = '정답! 다음 단계로 진행합니다.';
+                    messageEl.innerHTML = `
+                        <div style="margin-bottom: 15px;">정말 잘하셨어요! 집중력이 훌륭하시네요! 🎉</div>
+                        <button class="control-button" onclick="nextWordLevel()" style="background: #28a745; margin-right: 10px;">다음 단계</button>
+                        <button class="control-button" onclick="stayWordLevel()">그만하기</button>
+                    `;
                     messageEl.className = 'message success';
                     
-                    document.getElementById('word-level').textContent = wordLevel;
                     document.getElementById('word-score').textContent = wordScore;
-                    
-                    setTimeout(() => {
-                        startWordGame();
-                    }, 2000);
                 } else {
                     // 오답 또는 시간 초과
-                    const timeoutMessage = selectedColor === '' ? '시간 초과!' : '틀렸습니다!';
-                    messageEl.textContent = `${timeoutMessage} 정답은 "${currentWordColor}"이었습니다.`;
+                    const timeoutMessage = selectedColor === '' ? '시간이 부족하셨네요!' : '아쉽네요!';
+                    messageEl.textContent = `${timeoutMessage} 정답은 "${currentWordColor}"이었어요. 괜찮아요, 다시 한번 도전해보세요! 😊`;
                     messageEl.className = 'message error';
                     
                     // 게임 리셋
                     setTimeout(() => {
                         resetWordGame();
-                    }, 3000);
+                    }, 4000);
                 }
                 
                 messageEl.style.display = 'block';
