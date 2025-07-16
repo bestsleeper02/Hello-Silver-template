@@ -124,6 +124,35 @@
                             <div class="button-container">
                                 <button class="game-button btn-primary" onclick="showGame('number-game')">숫자 기억 게임</button>
                                 <button class="game-button btn-secondary" onclick="showGame('color-game')">색깔 순서 기억 게임</button>
+                                <button class="game-button btn-purple" onclick="showGame('word-game')">글자 맞추기 게임</button>
+                            <!-- 글자 맞추기 게임 프레임 -->
+                            <div id="word-game" class="game-frame">
+                                <div class="game-header">
+                                    <div class="game-title">글자 맞추기 게임</div>
+                                    <button class="close-button" onclick="hideGame('word-game')">×</button>
+                                </div>
+                                <div class="game-content">
+                                    <div class="game-info">
+                                        <span>단계: <span id="word-level">1</span></span>
+                                        <span>점수: <span id="word-score">0</span></span>
+                                        <span>시간: <span id="word-timer">10</span>초</span>
+                                    </div>
+                                    <div class="word-display">
+                                        <div id="word-text" class="word-text">시작하세요!</div>
+                                        <div id="word-instruction" class="word-instruction">글자의 색깔을 선택하세요!</div>
+                                    </div>
+                                    <div class="word-choices" id="word-choices">
+                                        <button class="choice-button" onclick="selectWord('빨간색')">빨간색</button>
+                                        <button class="choice-button" onclick="selectWord('파란색')">파란색</button>
+                                        <button class="choice-button" onclick="selectWord('초록색')">초록색</button>
+                                        <button class="choice-button" onclick="selectWord('노란색')">노란색</button>
+                                    </div>
+                                    <div>
+                                        <button class="control-button" onclick="startWordGame()">시작</button>
+                                        <button class="control-button" onclick="resetWordGame()">리셋</button>
+                                    </div>
+                                    <div id="word-message" class="message" style="display: none;"></div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-8">
@@ -160,14 +189,15 @@
                                     <div class="game-info">
                                         <span>단계: <span id="color-level">1</span></span>
                                         <span>점수: <span id="color-score">0</span></span>
+                                        <span>진행: <span id="color-progress">0</span>/<span id="color-total">0</span></span>
                                     </div>
                                     <div class="color-grid">
-                                        <button class="color-button red" onclick="colorClick('red')"></button>
-                                        <button class="color-button blue" onclick="colorClick('blue')"></button>
-                                        <button class="color-button green" onclick="colorClick('green')"></button>
-                                        <button class="color-button yellow" onclick="colorClick('yellow')"></button>
-                                        <button class="color-button purple" onclick="colorClick('purple')"></button>
-                                        <button class="color-button orange" onclick="colorClick('orange')"></button>
+                                        <button class="color-button red" onclick="colorClick('red')" data-number=""></button>
+                                        <button class="color-button blue" onclick="colorClick('blue')" data-number=""></button>
+                                        <button class="color-button green" onclick="colorClick('green')" data-number=""></button>
+                                        <button class="color-button yellow" onclick="colorClick('yellow')" data-number=""></button>
+                                        <button class="color-button purple" onclick="colorClick('purple')" data-number=""></button>
+                                        <button class="color-button orange" onclick="colorClick('orange')" data-number=""></button>
                                     </div>
                                     <div>
                                         <button class="control-button" onclick="startColorGame()">시작</button>
@@ -185,13 +215,15 @@
         <style>
             .button-container {
                 display: flex;
-                gap: 20px;
+                gap: 15px;
                 margin-bottom: 30px;
                 justify-content: center;
+                flex-wrap: wrap;
             }
             
             .game-button {
-                width: 45%;
+                width: 30%;
+                min-width: 200px;
                 padding: 20px;
                 font-size: 1.2em;
                 font-weight: bold;
@@ -220,6 +252,16 @@
             .btn-secondary:hover {
                 transform: translateY(-3px);
                 box-shadow: 0 12px 25px rgba(78, 205, 196, 0.4);
+            }
+            
+            .btn-purple {
+                background: linear-gradient(45deg, #8e44ad, #9b59b6);
+                color: white;
+            }
+            
+            .btn-purple:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 25px rgba(142, 68, 173, 0.4);
             }
             
             .game-frame {
@@ -303,15 +345,44 @@
             .color-button {
                 width: 80px;
                 height: 80px;
-                border: none;
+                border: 3px solid transparent;
                 border-radius: 10px;
                 cursor: pointer;
                 transition: all 0.3s ease;
                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                position: relative;
+                font-size: 1.5em;
+                font-weight: bold;
+                color: white;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
             }
             
             .color-button:hover {
                 transform: scale(1.1);
+            }
+            
+            .color-button.clicked {
+                border-color: white;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+                transform: scale(0.95);
+            }
+            
+            .color-button.showing {
+                border-color: #fff;
+                box-shadow: 0 0 25px rgba(255, 255, 255, 1);
+                transform: scale(1.15);
+            }
+            
+            .color-button::after {
+                content: attr(data-number);
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1.2em;
+                font-weight: bold;
+                color: white;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
             }
             
             .color-button.red { background: #ff4757; }
@@ -377,6 +448,72 @@
                 background: #d1ecf1;
                 color: #0c5460;
                 border: 1px solid #bee5eb;
+            }
+            
+            .word-display {
+                margin: 30px 0;
+                text-align: center;
+            }
+            
+            .word-text {
+                font-size: 4em;
+                font-weight: bold;
+                margin-bottom: 15px;
+                min-height: 100px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f8f9fa;
+                border-radius: 10px;
+                border: 3px solid #e9ecef;
+            }
+            
+            .word-instruction {
+                font-size: 1.2em;
+                color: #666;
+                margin-bottom: 20px;
+            }
+            
+            .word-choices {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                margin: 30px 0;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .choice-button {
+                padding: 15px 20px;
+                font-size: 1.1em;
+                font-weight: bold;
+                border: 3px solid transparent;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                background: #e9ecef;
+                color: #333;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .choice-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+                background: #dee2e6;
+            }
+            
+            .choice-button.selected {
+                border-color: #007bff;
+                background: #007bff;
+                color: white;
+                transform: scale(0.95);
+            }
+            
+            .choice-button:disabled {
+                cursor: not-allowed;
+                opacity: 0.6;
+                transform: none;
             }
         </style>
 
@@ -489,11 +626,21 @@
                 document.getElementById('color-message').style.display = 'none';
                 userColorSequence = [];
                 
+                // 번호 초기화
+                document.querySelectorAll('.color-button').forEach(button => {
+                    button.setAttribute('data-number', '');
+                    button.classList.remove('clicked', 'showing');
+                });
+                
                 // 현재 레벨에 맞는 색깔 시퀀스 생성
                 colorSequence = [];
                 for (let i = 0; i < colorLevel + 2; i++) {
                     colorSequence.push(colors[Math.floor(Math.random() * colors.length)]);
                 }
+                
+                // 진행 상황 업데이트
+                document.getElementById('color-progress').textContent = '0';
+                document.getElementById('color-total').textContent = colorSequence.length;
                 
                 showColorSequence();
             }
@@ -509,12 +656,10 @@
                         const button = document.querySelector(`.color-button.${color}`);
                         
                         // 색깔 강조 효과
-                        button.style.transform = 'scale(1.2)';
-                        button.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.8)';
+                        button.classList.add('showing');
                         
                         setTimeout(() => {
-                            button.style.transform = 'scale(1)';
-                            button.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+                            button.classList.remove('showing');
                             index++;
                             setTimeout(showNext, 300);
                         }, 600);
@@ -531,7 +676,21 @@
             function colorClick(color) {
                 if (!canClick || isShowingColors) return;
                 
+                const button = document.querySelector(`.color-button.${color}`);
+                const clickNumber = userColorSequence.length + 1;
+                
+                // 클릭 모션 효과
+                button.classList.add('clicked');
+                button.setAttribute('data-number', clickNumber);
+                
+                setTimeout(() => {
+                    button.classList.remove('clicked');
+                }, 200);
+                
                 userColorSequence.push(color);
+                
+                // 진행 상황 업데이트
+                document.getElementById('color-progress').textContent = userColorSequence.length;
                 
                 // 클릭한 색깔의 인덱스 확인
                 const currentIndex = userColorSequence.length - 1;
@@ -540,6 +699,7 @@
                     // 시퀀스 완료 확인
                     if (userColorSequence.length === colorSequence.length) {
                         // 레벨 완료
+                        canClick = false;
                         colorScore += colorLevel * 15;
                         colorLevel++;
                         
@@ -554,6 +714,7 @@
                     }
                 } else {
                     // 틀렸을 때
+                    canClick = false;
                     showMessage('틀렸습니다! 게임이 리셋됩니다.', 'error');
                     
                     setTimeout(() => {
@@ -569,8 +730,16 @@
                 userColorSequence = [];
                 canClick = false;
                 
+                // 번호 초기화
+                document.querySelectorAll('.color-button').forEach(button => {
+                    button.setAttribute('data-number', '');
+                    button.classList.remove('clicked', 'showing');
+                });
+                
                 document.getElementById('color-level').textContent = colorLevel;
                 document.getElementById('color-score').textContent = colorScore;
+                document.getElementById('color-progress').textContent = '0';
+                document.getElementById('color-total').textContent = '0';
                 document.getElementById('color-message').style.display = 'none';
             }
             
@@ -581,7 +750,139 @@
                 messageEl.style.display = 'block';
             }
             
-            // 엔터 키로 숫자 게임 제출
+            // 글자 맞추기 게임 변수
+            let wordLevel = 1;
+            let wordScore = 0;
+            let currentWordColor = '';
+            let currentWordText = '';
+            let wordTimer = 10;
+            let wordTimerInterval = null;
+            let wordGameActive = false;
+            
+            const wordColors = {
+                '빨간색': '#ff4757',
+                '파란색': '#3742fa', 
+                '초록색': '#2ed573',
+                '노란색': '#ffa502'
+            };
+            
+            const colorNames = ['빨간색', '파란색', '초록색', '노란색'];
+            
+            function startWordGame() {
+                if (wordGameActive) return;
+                
+                wordGameActive = true;
+                document.getElementById('word-message').style.display = 'none';
+                
+                // 타이머 시작
+                wordTimer = Math.max(8, 12 - wordLevel); // 레벨이 올라갈수록 시간 단축
+                document.getElementById('word-timer').textContent = wordTimer;
+                
+                if (wordTimerInterval) clearInterval(wordTimerInterval);
+                wordTimerInterval = setInterval(() => {
+                    wordTimer--;
+                    document.getElementById('word-timer').textContent = wordTimer;
+                    
+                    if (wordTimer <= 0) {
+                        clearInterval(wordTimerInterval);
+                        selectWord(''); // 시간 초과
+                    }
+                }, 1000);
+                
+                // 랜덤 단어와 색상 생성
+                currentWordText = colorNames[Math.floor(Math.random() * colorNames.length)];
+                currentWordColor = colorNames[Math.floor(Math.random() * colorNames.length)];
+                
+                // 글자 내용과 색상이 같으면 다시 생성
+                while (currentWordText === currentWordColor) {
+                    currentWordColor = colorNames[Math.floor(Math.random() * colorNames.length)];
+                }
+                
+                // 글자 표시
+                const wordElement = document.getElementById('word-text');
+                wordElement.textContent = currentWordText;
+                wordElement.style.color = wordColors[currentWordColor];
+                
+                // 선택지 버튼 활성화
+                document.querySelectorAll('.choice-button').forEach(button => {
+                    button.disabled = false;
+                    button.classList.remove('selected');
+                });
+            }
+            
+            function selectWord(selectedColor) {
+                if (!wordGameActive) return;
+                
+                wordGameActive = false;
+                clearInterval(wordTimerInterval);
+                
+                // 선택한 버튼 강조
+                if (selectedColor) {
+                    const selectedButton = Array.from(document.querySelectorAll('.choice-button'))
+                        .find(btn => btn.textContent === selectedColor);
+                    if (selectedButton) {
+                        selectedButton.classList.add('selected');
+                    }
+                }
+                
+                // 모든 버튼 비활성화
+                document.querySelectorAll('.choice-button').forEach(button => {
+                    button.disabled = true;
+                });
+                
+                const messageEl = document.getElementById('word-message');
+                
+                if (selectedColor === currentWordColor) {
+                    // 정답
+                    wordScore += wordLevel * 20;
+                    wordLevel++;
+                    messageEl.textContent = '정답! 다음 단계로 진행합니다.';
+                    messageEl.className = 'message success';
+                    
+                    document.getElementById('word-level').textContent = wordLevel;
+                    document.getElementById('word-score').textContent = wordScore;
+                    
+                    setTimeout(() => {
+                        startWordGame();
+                    }, 2000);
+                } else {
+                    // 오답 또는 시간 초과
+                    const timeoutMessage = selectedColor === '' ? '시간 초과!' : '틀렸습니다!';
+                    messageEl.textContent = `${timeoutMessage} 정답은 "${currentWordColor}"이었습니다.`;
+                    messageEl.className = 'message error';
+                    
+                    // 게임 리셋
+                    setTimeout(() => {
+                        resetWordGame();
+                    }, 3000);
+                }
+                
+                messageEl.style.display = 'block';
+            }
+            
+            function resetWordGame() {
+                wordLevel = 1;
+                wordScore = 0;
+                wordGameActive = false;
+                
+                if (wordTimerInterval) {
+                    clearInterval(wordTimerInterval);
+                    wordTimerInterval = null;
+                }
+                
+                document.getElementById('word-level').textContent = wordLevel;
+                document.getElementById('word-score').textContent = wordScore;
+                document.getElementById('word-timer').textContent = '10';
+                document.getElementById('word-text').textContent = '시작하세요!';
+                document.getElementById('word-text').style.color = '#333';
+                document.getElementById('word-message').style.display = 'none';
+                
+                // 선택지 버튼 리셋
+                document.querySelectorAll('.choice-button').forEach(button => {
+                    button.disabled = false;
+                    button.classList.remove('selected');
+                });
+            }
             document.addEventListener('DOMContentLoaded', function() {
                 const numberInput = document.getElementById('number-input');
                 if (numberInput) {
