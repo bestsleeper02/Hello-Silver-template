@@ -1,1 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>어르신 복지 지원 웹 앱</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Inter font and general body styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top to allow scrolling */
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container bg-white p-8 rounded-xl shadow-lg max-w-2xl w-full my-8">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">어르신 복지 지원 진단</h1>
+
+        <form id="welfareForm" class="space-y-6">
+            <!-- Question Group 1: Income and Economic Status -->
+            <div class="question-group bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-4">1. 소득 및 경제 상황</h3>
+                <div class="space-y-3">
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q1_income" value="0" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 월 50만원 미만
+                    </label>
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q1_income" value="10" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 월 50만원 이상 ~ 100만원 미만
+                    </label>
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q1_income" value="20" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 월 100만원 이상 ~ 150만원 미만
+                    </label>
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q1_income" value="30" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 월 150만원 이상
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question Group 2: Health Status -->
+            <div class="question-group bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-4">2. 건강 상태</h3>
+                <div class="space-y-3">
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q2_health" value="0" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 일상생활 수행에 심각한 어려움 (거동 불가 또는 전적인 도움 필요)
+                    </label>
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q2_health" value="10" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 일상생활 수행에 부분적 어려움 (부분적인 도움 필요)
+                    </label>
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q2_health" value="20" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 일상생활 수행에 어려움 없음
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question Group 3: Family and Social Relationships -->
+            <div class="question-group bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-4">3. 가족 및 사회적 관계</h3>
+                <div class="space-y-3">
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q3_social" value="0" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 독거이거나 가족과의 교류가 거의 없음
+                    </label>
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q3_social" value="10" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 가끔 가족과 교류하거나 소수의 지인이 있음
+                    </label>
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q3_social" value="20" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 가족과 자주 교류하며 활발한 사회 활동을 함
+                    </label>
+                </div>
+            </div>
+
+            <!-- Question Group 4: Living Environment -->
+            <div class="question-group bg-gray-50 p-6 rounded-lg border border-gray-200">
+                <h3 class="text-2xl font-semibold text-gray-700 mb-4">4. 주거 환경</h3>
+                <div class="space-y-3">
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q4_housing" value="0" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 주거 환경이 매우 열악하고 편의 시설이 부족함
+                    </label>
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q4_housing" value="10" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 주거 환경이 보통이며 일부 불편함이 있음
+                    </label>
+                    <label class="block text-lg cursor-pointer p-3 bg-white rounded-md hover:bg-blue-50 transition duration-200 ease-in-out border border-gray-300">
+                        <input type="radio" name="q4_housing" value="20" class="mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5"> 주거 환경이 안정적이고 편의 시설이 잘 갖춰져 있음
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full py-4 bg-green-600 text-white text-xl font-bold rounded-lg hover:bg-green-700 transition duration-300 ease-in-out shadow-md">
+                복지 점수 계산하기
+            </button>
+        </form>
+
+        <!-- Results Section -->
+        <div id="results" class="mt-12 p-8 bg-blue-50 rounded-xl border border-blue-200 shadow-inner" style="display: none;">
+            <h2 class="text-3xl font-bold text-blue-800 mb-6 text-center">당신의 복지 점수: <span id="welfareScore" class="text-blue-600">0</span>점</h2>
+            <h3 class="text-2xl font-semibold text-blue-700 mb-4">추천 복지 제도:</h3>
+            <ul id="recommendedWelfare" class="space-y-4">
+                <!-- Welfare programs will be dynamically added here -->
+            </ul>
+        </div>
+
+        <!-- Custom Alert Modal -->
+        <div id="customAlertModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 hidden">
+            <div class="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full text-center">
+                <p id="customAlertMessage" class="text-xl font-semibold text-gray-800 mb-6"></p>
+                <button id="customAlertClose" class="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 ease-in-out">확인</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const welfareForm = document.getElementById('welfareForm');
+            const resultsDiv = document.getElementById('results');
+            const welfareScoreSpan = document.getElementById('welfareScore');
+            const recommendedWelfareUl = document.getElementById('recommendedWelfare');
+            const customAlertModal = document.getElementById('customAlertModal');
+            const customAlertMessage = document.getElementById('customAlertMessage');
+            const customAlertClose = document.getElementById('customAlertClose');
+
+            /**
+             * Displays a custom alert modal with a given message.
+             * @param {string} message - The message to display in the alert.
+             */
+            function showAlert(message) {
+                customAlertMessage.textContent = message;
+                customAlertModal.classList.remove('hidden');
+            }
+
+            // Close the custom alert modal
+            customAlertClose.addEventListener('click', () => {
+                customAlertModal.classList.add('hidden');
+            });
+
+            // Welfare program data (Korean context)
+            const welfarePrograms = {
+                lowScore: [ // Lower score range (more support needed)
+                    { name: "기초생활보장제도", description: "생활이 어려운 어르신에게 생계, 의료, 주거, 교육 급여 등을 지원하여 최저생활을 보장합니다. 주민센터에서 상담 후 신청 가능합니다." },
+                    { name: "기초연금", description: "만 65세 이상 소득 하위 70% 어르신에게 매월 일정액의 연금을 지급하여 안정적인 노후를 지원합니다. 가까운 주민센터나 국민연금공단 지사에서 신청 가능합니다." },
+                    { name: "노인장기요양보험", description: "고령이나 노인성 질병으로 거동이 불편한 어르신에게 신체활동, 가사활동 지원 등의 장기요양급여를 제공합니다. 국민건강보험공단 장기요양보험 홈페이지에서 자세한 정보 확인 및 신청 가능합니다." },
+                    { name: "노인맞춤돌봄서비스", description: "돌봄이 필요한 어르신에게 안전 확인, 건강 교육, 외출 동행 등 맞춤형 서비스를 제공합니다. 시·군·구청이나 노인복지관에 문의하시면 됩니다." },
+                    { name: "주거급여", description: "소득 및 주거 형태에 따라 임차료 또는 주택 수선유지비를 지원하여 주거 안정에 기여합니다. 주민센터에서 신청 가능합니다." },
+                    { name: "긴급복지지원제도", description: "갑작스러운 위기 상황으로 생계 유지가 곤란한 어르신에게 생계비, 의료비 등을 일시적으로 지원합니다. 시·군·구청이나 보건복지부 콜센터(129)로 문의하세요." }
+                ],
+                mediumScore: [ // Medium score range
+                    { name: "노인 일자리 및 사회활동 지원", description: "어르신들이 활기찬 노후를 보낼 수 있도록 다양한 유형의 일자리와 사회활동 참여 기회를 제공합니다. (예: 공익활동, 사회서비스형 등) 시니어클럽, 노인복지관 등에서 안내받을 수 있습니다." },
+                    { name: "치매안심센터 서비스", description: "치매 조기 진단, 상담, 치매 환자 및 가족 지원 프로그램 등을 제공합니다. 각 지역 치매안심센터를 이용하세요." },
+                    { name: "경로당 활성화 지원", description: "경로당 운영비 및 프로그램비 지원을 통해 어르신들의 여가 및 교류 활동을 돕습니다. 가까운 경로당 또는 지자체 경로당 담당 부서에 문의하세요." },
+                    { name: "방문건강관리 서비스", description: "보건소 전문 인력이 가정을 방문하여 건강 상담, 만성질환 관리 등 맞춤형 건강 서비스를 제공합니다. 해당 보건소에 문의하세요." }
+                ],
+                highScore: [ // Higher score range (relatively good, but additional information provided)
+                    { name: "노인교실 및 평생교육 프로그램", description: "어르신들의 배움에 대한 열정을 지원하기 위해 다양한 취미, 건강, 교양 강좌 등을 제공합니다. 노인복지관, 평생교육기관 등에 문의하세요." },
+                    { name: "자원봉사활동 참여", description: "어르신들이 사회에 기여하고 보람을 느낄 수 있도록 다양한 분야의 자원봉사활동 참여를 권장합니다. 1365 자원봉사 포털 등에서 정보를 얻을 수 있습니다." },
+                    { name: "금융 및 세무 상담", description: "어르신들의 안정적인 재정 관리를 위한 금융 및 세무 상담 서비스를 이용할 수 있습니다. 은행, 세무서 등에서 문의하세요." }
+                ]
+            };
+
+            // Event listener for form submission
+            welfareForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent default form submission behavior (page reload)
+
+                let totalScore = 0;
+
+                // Get selected radio button values for each question group
+                const q1 = document.querySelector('input[name="q1_income"]:checked');
+                const q2 = document.querySelector('input[name="q2_health"]:checked');
+                const q3 = document.querySelector('input[name="q3_social"]:checked');
+                const q4 = document.querySelector('input[name="q4_housing"]:checked');
+
+                // Validate if all questions are answered
+                if (!q1 || !q2 || !q3 || !q4) {
+                    showAlert('모든 질문에 답변해주세요.');
+                    return;
+                }
+
+                // Sum up the scores
+                totalScore += parseInt(q1.value);
+                totalScore += parseInt(q2.value);
+                totalScore += parseInt(q3.value);
+                totalScore += parseInt(q4.value);
+
+                // Display the total score
+                welfareScoreSpan.textContent = totalScore;
+
+                // Logic to recommend welfare programs based on score
+                recommendedWelfareUl.innerHTML = ''; // Clear previous results
+                let recommendedList = [];
+
+                // Define score ranges for recommendations
+                if (totalScore <= 30) { // Low score range (most vulnerable)
+                    recommendedList = welfarePrograms.lowScore;
+                } else if (totalScore <= 60) { // Medium score range
+                    // Combine low and medium score programs
+                    recommendedList = welfarePrograms.lowScore.concat(welfarePrograms.mediumScore);
+                } else { // High score range (relatively well-off)
+                    // Combine medium and high score programs, or just high if very high
+                    recommendedList = welfarePrograms.mediumScore.concat(welfarePrograms.highScore);
+                }
+
+                // Display the recommended welfare programs
+                if (recommendedList.length > 0) {
+                    recommendedList.forEach(program => {
+                        const li = document.createElement('li');
+                        li.className = 'welfare-item bg-white p-4 rounded-md shadow-sm border border-gray-100';
+                        li.innerHTML = `<strong class="text-xl text-blue-600 block mb-1">${program.name}</strong><p class="text-gray-700 text-base">${program.description}</p>`;
+                        recommendedWelfareUl.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.className = 'text-gray-700 text-lg';
+                    li.textContent = "현재 점수에 해당하는 특별한 추천 제도는 없습니다. 필요시 가까운 주민센터에 문의해주세요.";
+                    recommendedWelfareUl.appendChild(li);
+                }
+
+                resultsDiv.style.display = 'block'; // Show the results section
+                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Scroll to the results section
+            });
+        });
+    </script>
+</body>
+</html>
 
